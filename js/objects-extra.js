@@ -1083,8 +1083,17 @@ function getGenderCounts(arr) {
 
 console.log(getGenderCounts(profiles));
 //  getAllCompanyNames() should return an array of all companies represented by the users
-
+function getAllCompanyNames(arr) {
+    companies = new Set();
+    arr.forEach(profile => {
+        companies.add(profile.company);
+    });
+    return Array.from(companies);
+}
+// I want to work at EARTHWAX so bad I can't stand it that's such a great name
+console.log(getAllCompanyNames(profiles));
 //  getMostCommonEyeColor() should return the most commonly occuring eye-color.
+
 //  getBalancesForActiveAndNonActive() should return the balance of all non-active accounts vs. the balance of all active accounts?
 //     this last method should return an object that looks like {"active-balances": 23000, "inactive-balances": 4000} w/ different numbers.
 

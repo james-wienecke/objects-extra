@@ -1108,9 +1108,15 @@ function getMostCommonEyeColor(arr) {
 
 console.log(getMostCommonEyeColor(eyeColors));
 //  getBalancesForActiveAndNonActive() should return the balance of all non-active accounts vs. the balance of all active accounts?
-function getBalancesForActiveAndNonActive(profiles) {
-    
+function getBalancesForActiveAndNonActive(arr) {
+    let balances = {activeBalances: 0, inactiveBalances: 0};
+    arr.forEach(profile => {
+        if (profile.isActive) balances.activeBalances += parseFloat(profile.balance.replace(/\$|,/g, ''));
+        else balances.inactiveBalances += parseFloat(profile.balance.replace(/\$|,/g, ''));
+    });
+    return balances;
 }
+console.log(getBalancesForActiveAndNonActive(profiles));
 //     this last method should return an object that looks like {"active-balances": 23000, "inactive-balances": 4000} w/ different numbers.
 
 

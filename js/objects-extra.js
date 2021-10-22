@@ -957,7 +957,8 @@ function getActiveCount(arr) {
     });
     return active;
 }
-console.log(getActiveCount(profiles));
+let numUsers = getActiveCount(profiles)
+console.log(numUsers);
 //  getInactiveCount() should return the number of inactive profiles
 function getInactiveCount(arr) {
     let inactive = 0;
@@ -1044,8 +1045,14 @@ function getTotalNumberOfUnreadMessages(arr) {
     });
     return messageNum;
 }
-console.log(getTotalNumberOfUnreadMessages(profiles));
+let unreadMessagesTotal = getTotalNumberOfUnreadMessages(profiles)
+console.log(unreadMessagesTotal);
+
 //  getAverageNumberOfUnreadMessages() should return the average number of unread mesages per user.
+function getAverageNumberOfUnreadMessages(totalMessages, totalUsers) {
+    return totalMessages / totalUsers;
+}
+console.log(getAverageNumberOfUnreadMessages(unreadMessagesTotal, numUsers));
 //  getAverageAge() should return the average age of all users
 //  getGenderCounts() should return gender count of users as an object: example {"m": 23, "f", 32}
 //  getAllCompanyNames() should return an array of all companies represented by the users

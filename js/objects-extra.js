@@ -948,7 +948,8 @@ console.log(salesReport.getAverageSalesPerEmployee());
 function getProfileCount(arr) {
     return arr.length;
 }
-console.log(getProfileCount(profiles));
+let numUsers = getProfileCount(profiles)
+console.log(numUsers);
 //  getActiveCount() should return the number of active profiles
 function getActiveCount(arr) {
     let active = 0;
@@ -957,8 +958,7 @@ function getActiveCount(arr) {
     });
     return active;
 }
-let numUsers = getActiveCount(profiles)
-console.log(numUsers);
+console.log(getActiveCount(profiles));
 //  getInactiveCount() should return the number of inactive profiles
 function getInactiveCount(arr) {
     let inactive = 0;
@@ -1049,13 +1049,41 @@ let unreadMessagesTotal = getTotalNumberOfUnreadMessages(profiles)
 console.log(unreadMessagesTotal);
 
 //  getAverageNumberOfUnreadMessages() should return the average number of unread mesages per user.
-function getAverageNumberOfUnreadMessages(totalMessages, totalUsers) {
-    return totalMessages / totalUsers;
+function getAverageNumberOfUnreadMessages(totalMessages) {
+    return totalMessages / numUsers;
 }
-console.log(getAverageNumberOfUnreadMessages(unreadMessagesTotal, numUsers));
+console.log(getAverageNumberOfUnreadMessages(unreadMessagesTotal));
 //  getAverageAge() should return the average age of all users
+function getAverageAge(arr) {
+    let total = 0;
+    arr.forEach(profile => {
+        total += profile.age;
+    });
+    return total / numUsers;
+}
+console.log(getAverageAge(profiles));
 //  getGenderCounts() should return gender count of users as an object: example {"m": 23, "f", 32}
+function getGenderCounts(arr) {
+    genders = { f: 0, m: 0, n:0 }; // gotta fight for my enbies out there!
+    arr.forEach(profile => {
+        switch(profile.gender) {
+            case 'female':
+                genders.f++;
+                break;
+            case 'male':
+                genders.m++;
+                break;
+            case 'other':
+                genders.n++;
+                break;
+        }
+    });
+    return genders;
+}
+
+console.log(getGenderCounts(profiles));
 //  getAllCompanyNames() should return an array of all companies represented by the users
+
 //  getMostCommonEyeColor() should return the most commonly occuring eye-color.
 //  getBalancesForActiveAndNonActive() should return the balance of all non-active accounts vs. the balance of all active accounts?
 //     this last method should return an object that looks like {"active-balances": 23000, "inactive-balances": 4000} w/ different numbers.

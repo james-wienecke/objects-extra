@@ -1008,7 +1008,7 @@ console.log(`$`, getHighestBalance(profiles).toFixed(2));
 //  getMostFavoriteFruit() should return the most common fruit
 function getMostOrLeastFrequent(arr, most) {
     // https://javascript.plainenglish.io/how-to-find-the-most-frequent-element-in-an-array-in-javascript-c85119dc78d2
-    // this function was found here and edited by me to work with least common occurance
+    // this function was found here and edited by me to be generalized and work with least common occurance
     // I know how useful hashmaps are but my hashmap game is still weak. learned a lot with this though!
     const hashmap = arr.reduce((acc, val) => {
         acc[val] = (acc[val] || 0) + 1;
@@ -1093,8 +1093,24 @@ function getAllCompanyNames(arr) {
 // I want to work at EARTHWAX so bad I can't stand it that's such a great name
 console.log(getAllCompanyNames(profiles));
 //  getMostCommonEyeColor() should return the most commonly occuring eye-color.
+function getEyeColors(arr) {
+    let eyeColors = [];
+    arr.forEach(profile => {
+        eyeColors.push(profile.eyeColor);
+    });
+    return eyeColors;
+}
+const eyeColors = getEyeColors(profiles);
 
+function getMostCommonEyeColor(arr) {
+    return getMostOrLeastFrequent(arr, 1);
+}
+
+console.log(getMostCommonEyeColor(eyeColors));
 //  getBalancesForActiveAndNonActive() should return the balance of all non-active accounts vs. the balance of all active accounts?
+function getBalancesForActiveAndNonActive(profiles) {
+    
+}
 //     this last method should return an object that looks like {"active-balances": 23000, "inactive-balances": 4000} w/ different numbers.
 
 

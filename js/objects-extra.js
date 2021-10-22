@@ -988,15 +988,55 @@ function getLowestBalance(arr) {
         if (low > profile.balance.replace(/\$|,/g, '')) {
             low = profile.balance.replace(/\$|,/g, '');
         }
-        //Math.min(profile.balance.replace(/\$|,/g, ''), low);
-    })
+
+    });
     return parseFloat(low);
 }
 console.log(`$`, getLowestBalance(profiles).toFixed(2));
 //  getHighestBalance() should return the customer name with the highest balance
+function getHighestBalance(arr) {
+    let hi = Number.MIN_SAFE_INTEGER;
+    arr.forEach(profile => {
+        if (hi < profile.balance.replace(/\$|,/g, '')) {
+            hi = profile.balance.replace(/\$|,/g, '');
+        }
+    });
+    return parseFloat(hi);
+}
+console.log(`$`, getHighestBalance(profiles).toFixed(2));
 //  getMostFavoriteFruit() should return the most common fruit
+function getMostOrLeastFrequent(arr, most) {
+    // https://javascript.plainenglish.io/how-to-find-the-most-frequent-element-in-an-array-in-javascript-c85119dc78d2
+    // this function was found here and edited by me to work with least common occurance
+    // I know how useful hashmaps are but my hashmap game is still weak. learned a lot with this though!
+    const hashmap = arr.reduce((acc, val) => {
+        acc[val] = (acc[val] || 0) + 1;
+        return acc;
+    }, {});
+    if (most) return Object.keys(hashmap).reduce((a, b) => hashmap[a] > hashmap[b] ? a : b);
+    else return Object.keys(hashmap).reduce((a, b) => hashmap[a] < hashmap[b] ? a : b);
+}
+function getFruitPreferences (arr) {
+    let fruits = [];
+    arr.forEach(profile => {
+        fruits.push(profile.favoriteFruit);
+    });
+    return fruits;
+}
+const fruits = getFruitPreferences(profiles);
+
+function getMostFavoriteFruit(arr) {
+    return getMostOrLeastFrequent(fruits, 1);
+}
+console.log(getMostFavoriteFruit(profiles));
 //  getLeastFavoriteFruit() should return the least favorite fruit
+function getLeastFavoriteFruit(arr) {
+    return getMostOrLeastFrequent(fruits, 0);
+}
+console.log(getLeastFavoriteFruit(profiles));
+
 //  getTotalNumberOfUnreadMessages() should return the number of unread messages for all users
+
 //  getAverageNumberOfUnreadMessages() should return the average number of unread mesages per user.
 //  getAverageAge() should return the average age of all users
 //  getGenderCounts() should return gender count of users as an object: example {"m": 23, "f", 32}

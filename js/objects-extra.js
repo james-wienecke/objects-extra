@@ -1127,7 +1127,19 @@ console.log(getBalancesForActiveAndNonActive(profiles));
 // console.log the name property on person 1.
 // Why do you think changing person2 altered person1?
 // The term for this behavior is assignment by reference.
-
+let person1 = {
+    name: "James"
+};
+console.log('person 1:', person1);
+let person2 = person1;
+console.log('person 2:', person2);
+person2.name = "Bob";
+console.log('person2.name = "Bob"');
+console.log('person 1:', person1);
+console.log('person 2:', person2);
+// assignment by reference is when an assigment is preformed that instead of duplicating the original object
+// actually it points the new variable towards the original's location in memory. She's a tricky devil but
+// knowlege is power and knowing when and when not to assign by reference is a great tool.
 
 // Exercise 7. More practice with assignment by reference
 // Add the following HTML to your index.html page in this project.
@@ -1139,3 +1151,6 @@ console.log(getBalancesForActiveAndNonActive(profiles));
 // now, run inputElement.value = "I am altering an object by altering its properties" in your JS console.
 // See how both the "input" and "textInput" varialbes are referencing the same underlying HTML element?
 // This behavior is another example of "assignment by reference"
+
+let input = document.getElementById("input");
+let inputElement = document.getElementById("input");

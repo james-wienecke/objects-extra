@@ -1174,3 +1174,33 @@ fix() - will set sterile to true if dog sterilized property is false
 vaccinate() - takes in an argument for the name of the shot and adds a new
                 shot with the current date to the shotRecords array
  */
+
+let dog = {
+    breed: 'collie',
+    weightInPounds: 45,
+    age: 4,
+    color: 'black and white',
+    sterilized: false,
+    shotRecords: [{
+        date: new Date("July 19 2019 15:22"),
+        typeOfShot: 'doggie flu shot',
+    }],
+    bark: function () { console.log('Woof!'); },
+    getOlder: function () { this.age++; },
+    fix: function () { this.sterilized = true; },
+    vaccinate: function (shotName) {
+        this.shotRecords.push({
+            date: new Date(),
+            typeOfShot: shotName
+        });
+    }
+}
+console.log(dog);
+dog.bark();
+console.log('Dog is', dog.age, 'years old. Getting older...');
+dog.getOlder();
+console.log('Dog is now', dog.age, 'years old. What a big cutie!');
+console.log('time to take the dog to the vet...');
+dog.fix();
+dog.vaccinate('anti-hairloss shot');
+console.log(dog);

@@ -1299,27 +1299,27 @@ function bookEditByIndex() {
         console.log('Grabbing book with index of', userSearch);
         let book = books[userSearch - 1];
         if(confirm(`Current book title is ${book.name}. Change title?`)) {
-            bookEditValue(book, 'name')
-            console.log('Book title changed:', book.name);
+            bookEditValue(book, 'name');
         }
         if(confirm(`Current book author is ${book.author.name()}. Change first name?`)) {
             bookEditValue(book, 'author first');
-            console.log('Book author first name changed:', book.author.first);
         }
         if(confirm(`Current book author is ${book.author.name()}. Change last name?`)) {
             bookEditValue(book, 'author last');
-            console.log('Book author last name changed:', book.author.last);
         }
         showBookInfo(book, userSearch - 1);
         cont = confirm("Do you want to edit another book?");
     } while (cont);
+    return book;
 }
 
 function bookEditValue(book, key) {
     let attrib = key.split(' ');        // can take either 'title', 'author first', or 'author last'
     if (attrib.length === 1) {
        book[attrib[0]] = prompt(`Enter the new ${key} for this book.`).toLowerCase();
+        console.log(`Book ${key} changed:`, book[attrib[0]]);
     } else {
-        book[attrib[0]][attrib[1]] = prompt(`Enter the new ${key} for this book.`).toLowerCase();
+        book[attrib[0]][attrib[1]] = prompt(`Enter the new ${key} name for this book.`).toLowerCase();
+        console.log(`Book author ${key} changed:`, book[attrib[0]][attrib[1]]);
     }
 }

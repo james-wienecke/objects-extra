@@ -1275,51 +1275,42 @@ function deleteBook() {
         let userSearch = prompt("Enter a book title or author last name to delete a book.").toLowerCase();
         console.log('searching for:', userSearch);
         for (let i = 0; i < books.length; i++) {
-            if (userSearch === books[i]['name']) {
+            if ((userSearch === books[i]['name']) || (userSearch === books[i]['author']['last'])) {
                 console.log('Match found! Deleting:', books[i]);
                 books.splice(i, 1);
-                break;
-            } else if (userSearch === books[i]['author']['last']) {
-                console.log('Match found! Deleting:', books[i]);
-                books.splice(i, 1);
-                break;
-            }
+                i--;    // we need to decrement i because the length of books will shrink by 1 and if there's another
+            }           // book that matches the criteria in the very next index after this, it will be skipped otherwise D:
         }
-        //listBooks();
         console.log(books);
         cont = confirm("Do you want to delete another book?");
     } while (cont);
 }
 // Allow a user to edit a book by index number in the books array.
 function bookEditByIndex() {
-    let cont = true;
+    let anotherBook = false;
     listBooks();
     do {
         let userSearch = parseFloat(prompt("Enter the index number according to the printed list of the book you wish to edit."));
         console.log('Grabbing book with index of', userSearch);
         let book = books[userSearch - 1];
-        if(confirm(`Current book title is ${book.name}. Change title?`)) {
-            bookEditValue(book, 'name');
-        }
-        if(confirm(`Current book author is ${book.author.name()}. Change first name?`)) {
-            bookEditValue(book, 'author first');
-        }
-        if(confirm(`Current book author is ${book.author.name()}. Change last name?`)) {
-            bookEditValue(book, 'author last');
-        }
+        let userWantsToEdit;
+        do {
+            userWantsToEdit = prompt(`Selected book is "${book.name}", by ${book.author.name()}. Type which value you wish to edit in the book. Valid input is: 'name', 'author first', or 'author last'.`).toLowerCase();
+            bookEditValue(book, userWantsToEdit);
+            userWantsToEdit = confirm("Do you want to edit another value for this same book?");
+        } while (userWantsToEdit);
         showBookInfo(book, userSearch - 1);
-        cont = confirm("Do you want to edit another book?");
-    } while (cont);
-    return book;
+        anotherBook = confirm("Do you want to edit another book?");
+    } while (anotherBook);
 }
 
 function bookEditValue(book, key) {
-    let attrib = key.split(' ');        // can take either 'title', 'author first', or 'author last'
+    let attrib = key.split(' ');        // can take either 'name', 'author first', or 'author last'
     if (attrib.length === 1) {
        book[attrib[0]] = prompt(`Enter the new ${key} for this book.`).toLowerCase();
         console.log(`Book ${key} changed:`, book[attrib[0]]);
     } else {
         book[attrib[0]][attrib[1]] = prompt(`Enter the new ${key} name for this book.`).toLowerCase();
-        console.log(`Book author ${key} changed:`, book[attrib[0]][attrib[1]]);
+        console.log(`Book ${key} name changed:`, book[attrib[0]][attrib[1]]);
     }
 }

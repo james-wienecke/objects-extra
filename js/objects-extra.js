@@ -1255,7 +1255,12 @@ listBooks();
 
 // Create an application to take in user input to build the books array of objects.
 function userInputBookCreation () {
-    
+    do {
+        let bookTitle = prompt("Enter a book title.");
+        let bookAuthor = prompt("Enter the book's author's name.");
+        books.push(userInputBookCreation());
+    } while (prompt("Do you want to enter another book?"));
+    console.log(books);
 }
 // Allow the user to continue adding books or to finish adding books.
 // Once the books have been added, output the books array in the console.

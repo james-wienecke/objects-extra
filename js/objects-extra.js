@@ -1231,6 +1231,7 @@ function createBook (title, authorName) {
 }
 
 function showBookInfo (book, index) {
+
     console.log(`Book #${index + 1}`);
     console.log(`Title: ${book.name}`);
     console.log(`Author: ${book.author.name()}`);
@@ -1269,18 +1270,56 @@ function userInputBookCreation () {
 // Once the books have been added, output the books array in the console.
 // Allow a user to delete a book or a group of books by title or author last name.
 function deleteBook() {
-    let userSearch = prompt("Enter a book title or author last name to delete a book.").toLowerCase();
-    console.log('searching for:', userSearch);
-    for (let i = 0; i < books.length; i++) {
-        if (userSearch === books[i]['name']) {
-            console.log('Match found! Deleting:', books[i]);
-            books.splice(i, 1);
-        } else if (userSearch === books[i]['author']['last']) {
-            console.log('Match found! Deleting:', books[i]);
-            books.splice(i, 1);
+    let cont = true;
+    do {
+        let userSearch = prompt("Enter a book title or author last name to delete a book.").toLowerCase();
+        console.log('searching for:', userSearch);
+        for (let i = 0; i < books.length; i++) {
+            if (userSearch === books[i]['name']) {
+                console.log('Match found! Deleting:', books[i]);
+                books.splice(i, 1);
+                break;
+            } else if (userSearch === books[i]['author']['last']) {
+                console.log('Match found! Deleting:', books[i]);
+                books.splice(i, 1);
+                break;
+            }
         }
-    }
-    console.log(books);
+        //listBooks();
+        console.log(books);
+        cont = confirm("Do you want to delete another book?");
+    } while (cont);
+}
+// Allow a user to edit a book by index number in the books array.
+function bookEditByIndex() {
+    let cont = true;
+    listBooks();
+    do {
+        let userSearch = parseFloat(prompt("Enter the index number according to the printed list of the book you wish to edit."));
+        console.log('Grabbing book with index of', userSearch);
+        let book = books[userSearch - 1];
+        if(confirm(`Current book title is ${book.name}. Change title?`)) {
+            bookEditValue(book, 'name')
+            console.log('Book title changed:', book.name);
+        }
+        if(confirm(`Current book author is ${book.author.name()}. Change first name?`)) {
+            bookEditValue(book, 'author first');
+            console.log('Book author first name changed:', book.author.first);
+        }
+        if(confirm(`Current book author is ${book.author.name()}. Change last name?`)) {
+            bookEditValue(book, 'author last');
+            console.log('Book author last name changed:', book.author.last);
+        }
+        showBookInfo(book, userSearch - 1);
+        cont = confirm("Do you want to edit another book?");
+    } while (cont);
 }
 
-// Allow a user to edit a book by index number in the books array.
+function bookEditValue(book, key) {
+    let attrib = key.split(' ');        // can take either 'title', 'author first', or 'author last'
+    if (attrib.length === 1) {
+       book[attrib[0]] = prompt(`Enter the new ${key} for this book.`).toLowerCase();
+    } else {
+        book[attrib[0]][attrib[1]] = prompt(`Enter the new ${key} for this book.`).toLowerCase();
+    }
+}

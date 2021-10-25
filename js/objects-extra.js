@@ -1204,3 +1204,60 @@ console.log('time to take the dog to the vet...');
 dog.fix();
 dog.vaccinate('anti-hairloss shot');
 console.log(dog);
+
+let books = [];
+function createBook (title, authorName) {
+    let author = authorName.split(' ');
+    return {
+        name: title,
+        author: {
+            first: author[0],
+            last: author[1],
+            name: function () { return `${this.first} ${this.last}`; }
+        },
+        keywords: [],
+        addKeywords: function (newKeywords) { this.keywords.push(newKeywords); },
+        available: true,
+        dateAvailable: 'now',
+        lend: function () {
+            this.available = false;
+            this.dateAvailable = new Date(new Date + 12096e5);
+        },
+        receive: function () {
+            this.available = true;
+            this.dateAvailable = 'now';
+        }
+    }
+}
+
+function showBookInfo (book, index) {
+    console.log(`Book #${index + 1}`);
+    console.log(`Title: ${book.name}`);
+    console.log(`Author: ${book.author.name()}`);
+}
+
+function listBooks() {
+    books.forEach((book, index) => {
+        showBookInfo(book, index);
+        console.log(`---`);
+    });
+}
+
+books.push(createBook('Dune', 'Frank Herbert'));
+books.push(createBook('Blindsight', 'Peter Watts'));
+books.push(createBook('Three Body Problem', 'Cixin Liu'));
+books.push(createBook('Imagica', 'Clive Barker'));
+books.push(createBook('Weaveworld', 'Clive Barker'));
+books.push(createBook('Annihilation', 'Jeff VanderMeer'));
+books.push(createBook('Blood Meridian', 'Cormac Mccarthy'));
+books.push(createBook('1Q84', 'Haruki Murakami'));
+listBooks();
+
+// Create an application to take in user input to build the books array of objects.
+function userInputBookCreation () {
+    
+}
+// Allow the user to continue adding books or to finish adding books.
+// Once the books have been added, output the books array in the console.
+// Allow a user to delete a book or a group of books by title or author last name.
+// Allow a user to edit a book by index number in the books array.

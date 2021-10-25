@@ -1264,17 +1264,23 @@ function userInputBookCreation () {
     } while (cont);
     console.log(books);
 }
-userInputBookCreation();
+//userInputBookCreation();
 // Allow the user to continue adding books or to finish adding books.
 // Once the books have been added, output the books array in the console.
 // Allow a user to delete a book or a group of books by title or author last name.
 function deleteBook() {
     let userSearch = prompt("Enter a book title or author last name to delete a book.").toLowerCase();
-    console.log(userSearch);
+    console.log('searching for:', userSearch);
     for (let i = 0; i < books.length; i++) {
-        if (userSearch === (books[i].name || books[i].author.last)) {
+        if (userSearch === books[i]['name']) {
+            console.log('Match found! Deleting:', books[i]);
+            books.splice(i, 1);
+        } else if (userSearch === books[i]['author']['last']) {
+            console.log('Match found! Deleting:', books[i]);
             books.splice(i, 1);
         }
     }
+    console.log(books);
 }
+
 // Allow a user to edit a book by index number in the books array.

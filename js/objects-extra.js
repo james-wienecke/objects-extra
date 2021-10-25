@@ -1209,10 +1209,10 @@ let books = [];
 function createBook (title, authorName) {
     let author = authorName.split(' ');
     return {
-        name: title,
+        name: title.toLowerCase(),
         author: {
-            first: author[0],
-            last: author[1],
+            first: author[0].toLowerCase(),
+            last: author[1].toLowerCase(),
             name: function () { return `${this.first} ${this.last}`; }
         },
         keywords: [],
@@ -1255,14 +1255,26 @@ listBooks();
 
 // Create an application to take in user input to build the books array of objects.
 function userInputBookCreation () {
+    let cont = true;
     do {
         let bookTitle = prompt("Enter a book title.");
         let bookAuthor = prompt("Enter the book's author's name.");
-        books.push(userInputBookCreation());
-    } while (prompt("Do you want to enter another book?"));
+        books.push(createBook(bookTitle, bookAuthor));
+        cont = confirm("Do you want to enter another book?");
+    } while (cont);
     console.log(books);
 }
+userInputBookCreation();
 // Allow the user to continue adding books or to finish adding books.
 // Once the books have been added, output the books array in the console.
 // Allow a user to delete a book or a group of books by title or author last name.
+function deleteBook() {
+    let userSearch = prompt("Enter a book title or author last name to delete a book.").toLowerCase();
+    console.log(userSearch);
+    for (let i = 0; i < books.length; i++) {
+        if (userSearch === (books[i].name || books[i].author.last)) {
+            books.splice(i, 1);
+        }
+    }
+}
 // Allow a user to edit a book by index number in the books array.

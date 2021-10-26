@@ -1321,35 +1321,20 @@ Include properties for...
 
 triggered - whether or not the box has been sprung (should be false by default)
 intervalId - set to null
-play() - once called, if triggered is false, console.log one new element in the lyrics array every second after the lyrics, stop the interval, set the triggered property to true, and alert POP!
-windUp() - once called will stop the play() method and set triggered to false lyrics - an array with the following elements:
-
-"All a-...",
-"-round the ...",
-"mulberry...",
-"bush, The...",
-"monkey...",
-"chased the...",
-"wea-...",
-"-sel...",
-"The monkey...",
-"stopped to...",
-"pull up his...",
-"sock,...",
-"Pop!...",
-"goes the...",
-"wea-...",
-"-sel."
+play() - once called, if triggered is false, console.log one new element in the lyrics array every second after
+ the lyrics, stop the interval, set the triggered property to true, and alert POP!
+windUp() - once called will stop the play() method and set triggered to false.
 When running, current lyrics should also be displayed on the page.
 * */
-let jackBox = {
+const jackBox = {
     triggered: false,
     intervalID: null,
     play: function () {
-        if (!this.triggered) {
-            singLyrics()
+        if (!this.triggered && !this.intervalID) {
+            this.intervalID = setInterval(this.singLyric, 300, this.lyrics);
         }
-    }
+       
+    },
     lyrics: ["All a-...",
         "-round the ...",
         "mulberry...",
@@ -1365,5 +1350,17 @@ let jackBox = {
         "Pop!...",
         "goes the...",
         "wea-...",
-        "-sel."]
+        "-sel."],
+    lyricIndex : 0,
+    singLyric: function (lyrics) {
+        console.log(lyrics[jackBox.lyricIndex]);
+        if (jackBox.lyricIndex < lyrics.length - 1) {
+            jackBox.lyricIndex++;
+        } else {
+            jackBox.lyricIndex = 0;
+            clearInterval(jackBox.intervalID);
+        }
+    }
 }
+
+jackBox.play();

@@ -1314,3 +1314,66 @@ function bookEditValue(book, key) {
         console.log(`Book ${key} name changed:`, book[attrib[0]][attrib[1]]);
     }
 }
+/**
+* Define an object called jackBox
+
+Include properties for...
+
+triggered - whether or not the box has been sprung (should be false by default)
+intervalId - set to null
+play() - once called, if triggered is false, console.log one new element in the lyrics array every second after
+ the lyrics, stop the interval, set the triggered property to true, and alert POP!
+windUp() - once called will stop the play() method and set triggered to false.
+When running, current lyrics should also be displayed on the page.
+**/
+let songLyricsDisplay = document.getElementById("jackBoxSong");
+const jackBox = {
+    triggered: false,
+    intervalID: null,
+    // this function did not really need to be async but I thought it would be good practice for eventually
+    // needing to write non-blocking code and dealing with promises and callbacks and all that goodness :)
+    play: async function () {
+        if (!this.triggered && !this.intervalID) {
+            this.intervalID = setInterval(async () => { 
+                console.log(this.lyrics[this.lyricIndex]);
+                songLyricsDisplay.textContent = this.lyrics[this.lyricIndex]; 
+                if (this.lyricIndex < this.lyrics.length - 1) {
+                    this.lyricIndex++;
+                } else {
+                    this.lyricIndex = 0;
+                    clearInterval(this.intervalID);
+                    this.intervalID = null;
+                    this.triggered = true; 
+                    await new Promise(resolve => setTimeout(resolve, 750));
+                    console.log("POP!");
+                    songLyricsDisplay.textContent = "POP!!!";
+                }
+            }, 1000);
+        }
+    },
+    windUp: function () {
+        clearInterval(this.intervalID);
+        this.intervalID = null;
+        this.triggered = false;
+        songLyricsDisplay.textContent = "Jack in the box is wound, hit play!"
+    },
+    lyrics: ["All a-...",
+        "-round the ...",
+        "mulberry...",
+        "bush, The...",
+        "monkey...",
+        "chased the...",
+        "wea-...",
+        "-sel...",
+        "The monkey...",
+        "stopped to...",
+        "pull up his...",
+        "sock,...",
+        "Pop!...",
+        "goes the...",
+        "wea-...",
+        "-sel."],
+    lyricIndex : 0
+}
+
+//jackBox.play();

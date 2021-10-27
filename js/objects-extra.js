@@ -1376,4 +1376,40 @@ const jackBox = {
     lyricIndex : 0
 }
 
-//jackBox.play();
+/**Build a Stop Watch
+ Define an object called stopWatch.
+ Include the following properties...
+ intervalId
+ count
+ Include the following methods...
+ start() - starts console logging an increasing count every second pause() - pauses counter reset() - stops counter and resets count to zero
+ *
+ * @type {{start: stopWatch.start, reset: stopWatch.reset, pause: stopWatch.pause}}
+ */
+
+const stopWatch = {
+    intervalId: null,
+    count: 0,
+    start: function () {
+        if (!this.intervalId) {
+            this.intervalId = setInterval(() => {
+               console.log(this.count++);
+            }, 1000);
+        }
+    },
+    pause: function () {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+            console.log("PAUSED");
+        }
+    },
+    reset: function () {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+            this.count = 0;
+            console.log(this.count);
+        }
+    }
+}

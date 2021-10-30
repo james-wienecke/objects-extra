@@ -1334,16 +1334,16 @@ const jackBox = {
     // needing to write non-blocking code and dealing with promises and callbacks and all that goodness :)
     play: async function () {
         if (!this.triggered && !this.intervalID) {
-            this.intervalID = setInterval(async () => { 
+            this.intervalID = setInterval(async () => {
                 console.log(this.lyrics[this.lyricIndex]);
-                songLyricsDisplay.textContent = this.lyrics[this.lyricIndex]; 
+                songLyricsDisplay.textContent = this.lyrics[this.lyricIndex];
                 if (this.lyricIndex < this.lyrics.length - 1) {
                     this.lyricIndex++;
                 } else {
                     this.lyricIndex = 0;
                     clearInterval(this.intervalID);
                     this.intervalID = null;
-                    this.triggered = true; 
+                    this.triggered = true;
                     await new Promise(resolve => setTimeout(resolve, 750));
                     console.log("POP!");
                     songLyricsDisplay.textContent = "POP!!!";
@@ -1413,3 +1413,59 @@ const stopWatch = {
         }
     }
 }
+
+/*Write a function that takes in a sentence and returns the length of the longest word.
+
+"I like going out to parties with friends or watching TV." => 8 */
+
+function longestWordInSentence (sentence) {
+    let longest = -1;
+    sentence.split(' ').forEach((elem) => { if (elem.length > longest) longest = elem.length; });
+    return longest;
+}
+
+console.log(longestWordInSentence("I like going out to parties with friends or watching TV."));;
+
+/*
+Write a function that takes three parameters: a, b, c. Return the boolean true if a^2 + b^2 = c^2, false if not.
+
+3, 4, 5 => true
+4, 5, 6 => false */
+function hypotenuseCheck (a, b, c) {
+    return (Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(c, 2));
+}
+
+console.log(hypotenuseCheck(3, 4, 5));
+console.log(hypotenuseCheck(4, 5, 6));
+
+/*
+Write a function that takes a string and returns a "title case" string
+"The QUICK brown fox JuMpS ovER the LAZy dog"
+The Quick Brown Fox Jumps Over The Lazy Dog"*/
+function titleCase (input) {
+    let words = input.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].toLowerCase();
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+    return words.join(' ');
+}
+console.log(titleCase("The QUICK brown fox JuMpS ovER the LAZy dog"));
+
+/*
+Write a function that returns and object with keys set to the argument passed in and values equal to the types of the corresponding keys. Arguments will be type "number", "string", or "boolean".
+
+// input
+["hey", 1, "Jeffrey wants to goto the store", false]
+// output
+{
+  hey: "string",
+  1: "number",
+  "Jeffrey wants to goto the store": "string",
+  false: boolean
+}
+Write a function that takes two strings as input and returns true or false depending on whether they are anagrams(contain exactly the same letters). Only lowercase letters will be passed.
+
+"overcast", "overacts" => true
+"Jimbo", "Jason" => false
+ */

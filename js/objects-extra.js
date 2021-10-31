@@ -1453,7 +1453,8 @@ function titleCase (input) {
 console.log(titleCase("The QUICK brown fox JuMpS ovER the LAZy dog"));
 
 /*
-Write a function that returns and object with keys set to the argument passed in and values equal to the types of the corresponding keys. Arguments will be type "number", "string", or "boolean".
+Write a function that returns an object with keys set to the argument passed in and
+values equal to the types of the corresponding keys. Arguments will be type "number", "string", or "boolean".
 
 // input
 ["hey", 1, "Jeffrey wants to goto the store", false]
@@ -1464,8 +1465,30 @@ Write a function that returns and object with keys set to the argument passed in
   "Jeffrey wants to goto the store": "string",
   false: boolean
 }
-Write a function that takes two strings as input and returns true or false depending on whether they are anagrams(contain exactly the same letters). Only lowercase letters will be passed.
+*/
+function objectValuesAndKeys (input) {
+    let output = {};
+    for (let i = 0; i < input.length; i++) {
+        output[input[i]] = typeof input[i];
+    }
+    return output;
+}
+
+console.log(objectValuesAndKeys(["hey", 1, "Jeffrey wants to goto the store", false]));
+
+/*
+Write a function that takes two strings as input and returns true or false depending on
+whether they are anagrams(contain exactly the same letters). Only lowercase letters will be passed.
 
 "overcast", "overacts" => true
 "Jimbo", "Jason" => false
  */
+
+function isAnagram (wordA, wordB) {
+    let sortA = wordA.toLowerCase().split('').sort().join('');
+    let sortB = wordB.toLowerCase().split('').sort().join('');
+    return (sortA === sortB);
+}
+
+console.log(isAnagram("overcast", "overacts"));
+console.log(isAnagram("Jimbo", "Jason"));

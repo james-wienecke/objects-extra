@@ -1477,8 +1477,18 @@ function objectValuesAndKeys (input) {
 console.log(objectValuesAndKeys(["hey", 1, "Jeffrey wants to goto the store", false]));
 
 /*
-Write a function that takes two strings as input and returns true or false depending on whether they are anagrams(contain exactly the same letters). Only lowercase letters will be passed.
+Write a function that takes two strings as input and returns true or false depending on
+whether they are anagrams(contain exactly the same letters). Only lowercase letters will be passed.
 
 "overcast", "overacts" => true
 "Jimbo", "Jason" => false
  */
+
+function isAnagram (wordA, wordB) {
+    let sortA = wordA.toLowerCase().split('').sort().join('');
+    let sortB = wordB.toLowerCase().split('').sort().join('');
+    return (sortA === sortB);
+}
+
+console.log(isAnagram("overcast", "overacts"));
+console.log(isAnagram("Jimbo", "Jason"));

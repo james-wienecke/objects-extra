@@ -13,8 +13,12 @@
 <hr>
 <div>
     <p>Stopwatch</p>
-    <span id="watch-min"></span>
-    <span id="watch-sec"></span>
+    <span id="watch-min">00:</span>
+    <span id="watch-sec">00</span>
+    <br>
+    <button type="button" id="watch-start" onclick="stopWatch.start()">Start</button>
+    <button type="button" id="watch-pause" onclick="stopWatch.pause()">Pause</button>
+    <button type="button" id="watch-reset" onclick="stopWatch.reset()">Reset</button>
 </div>
 <script src="js/objects-extra.js"></script>
 </body>

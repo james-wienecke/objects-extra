@@ -1414,6 +1414,7 @@ const stopWatch = {
             this.intervalId = null;
             this.count = 0;
             console.log(this.count);
+            secondTick(this.count)
         }
     }
 }
@@ -1421,16 +1422,6 @@ const stopWatch = {
 function secondTick(count) {
     let currentTimeSec = count % 60
     let currentTimeMin = Math.floor(count / 60);
-    //let currentTime = parseFloat(stopWatch_secondsDisplay.textContent);
-    /*
-    if (count < 10) {
-        currentTimeSec = "0" + count;
-    } else {
-        currentTimeSec = count;
-    } String(count).padStart(2, 0);
-    */
-
-    console.log(currentTimeMin, currentTimeSec, count);
     stopWatch_secondsDisplay.textContent = String(currentTimeSec).padStart(2, 0);
     stopWatch_minutesDisplay.textContent = String(currentTimeMin).padStart(2, 0) + ":";
 }

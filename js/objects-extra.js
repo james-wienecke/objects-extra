@@ -1386,7 +1386,10 @@ const jackBox = {
  *
  * @type {{start: stopWatch.start, reset: stopWatch.reset, pause: stopWatch.pause}}
  */
-
+let stopWatch_minutesDisplay = document.getElementById("watch-min");
+let stopWatch_secondsDisplay = document.getElementById("watch-sec");
+//stopWatch_minutesDisplay.textContent = "00:";
+//stopWatch_secondsDisplay.textContent = "00";
 const stopWatch = {
     intervalId: null,
     count: 0,
@@ -1394,6 +1397,7 @@ const stopWatch = {
         if (!this.intervalId) {
             this.intervalId = setInterval(() => {
                console.log(this.count++);
+               secondTick(this.count);
             }, 1000);
         }
     },
@@ -1410,10 +1414,17 @@ const stopWatch = {
             this.intervalId = null;
             this.count = 0;
             console.log(this.count);
+            secondTick(this.count)
         }
     }
 }
 
+function secondTick(count) {
+    let currentTimeSec = count % 60
+    let currentTimeMin = Math.floor(count / 60);
+    stopWatch_secondsDisplay.textContent = String(currentTimeSec).padStart(2, 0);
+    stopWatch_minutesDisplay.textContent = String(currentTimeMin).padStart(2, 0) + ":";
+}
 /*Write a function that takes in a sentence and returns the length of the longest word.
 
 "I like going out to parties with friends or watching TV." => 8 */
